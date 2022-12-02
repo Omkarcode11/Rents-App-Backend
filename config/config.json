@@ -1,0 +1,16 @@
+{
+    "development" : {
+        "username" : "root",
+        "password" : "omkar",
+        "database" : "library",
+        "host" : "localhost",
+        "dialect" : "mysql"
+    },
+    "test" : {
+        "username" : "root",
+        "password" : "omkar",
+        "database" : "library_test_db",
+        "host" : "localhost",
+        "dialect" : "mysql"
+    }
+}
