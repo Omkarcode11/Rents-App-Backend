@@ -41,7 +41,7 @@ let deleteBook = async (req, res, next) => {
       id: req.params.id,
     },
   });
-  res.status(300).send('Successfully Update Book');
+  res.status(300).send('Successfully Deleted Book');
   res.end();
 };
 
