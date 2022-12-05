@@ -1,4 +1,4 @@
-let { mockRequest, mockResponse } = require('./../inspector.test');
+let { mockRequest, mockResponse } = require('./../inspector');
 let db = require('./../../../model/index');
 let booksController = require('./../../../controller/books.controller');
 

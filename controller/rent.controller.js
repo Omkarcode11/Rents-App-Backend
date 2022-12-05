@@ -9,7 +9,7 @@ let rentBook = async (req, res, next) => {
   });
   let book = await db.books.findByPk(req.params.id);
   await user.addBooks(book);
-  res.send('your Rent a book name is ' + JSON.stringify(book));
+  res.status(201).send('your Rent a book name is ' + JSON.stringify(book));
   res.end();
 };
 
@@ -19,7 +19,7 @@ let rentFreeBook = async (req, res, next) => {
       [Op.and]: [{ BookId: req.body.BookId }, { userId: req.body.userId }],
     },
   });
-  res.send('your book is rent free now');
+  res.status(200).send('your book is rent free now');
   res.end();
 };
 
