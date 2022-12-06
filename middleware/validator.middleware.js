@@ -36,4 +36,31 @@ let onlyAdmin = async (req, res, next) => {
   next();
 };
 
-module.exports = { nameValidator, idValidatorForBooks, onlyAdmin };
+
+let signupValidation = (req,res,next)=>{
+  if(!req.body.name || !req.body.address || !req.body.password || !req.body.role){
+    res.status(400).send("Enter Valid Text")
+    return
+  }
+  next()
+}
+
+let validatorForBulkCreate = (req,res,next)=>{
+  if(req.body=={}){
+    res.status(400).send("Enter proper value")
+    return
+  }
+  next()
+}
+
+let updateBookValidator = (req,res,next) =>{
+  if(!req.body.name || !req.body.id){
+    res.status(400).send("Enter proper value to update book")
+    return
+  }
+  next()
+}
+
+
+
+module.exports = { nameValidator, idValidatorForBooks, onlyAdmin, updateBookValidator,signupValidation , validatorForBulkCreate };

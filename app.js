@@ -3,13 +3,15 @@ let app = express();
 let router = require('./route/index');
 let db = require('./model/index');
 let bodyParser = require('body-parser');
+const ErrorHandler = require('./middleware/errorHandler');
 
 app.use(bodyParser.json());
 app.use(router);
+app.use(ErrorHandler);
 
 async function createTable() {
-  await db.connection.sync();
-    // insertBooks()
+  await db.connection.sync({ alter: true });
+  // insertBooks()
 }
 
 async function insertBooks() {
@@ -21,5 +23,5 @@ async function insertBooks() {
     { name: 'Tushar Kedare', address: 'Mali', role: ['user'] },
   ]);
 }
-// createTable()  
+// createTable();
 module.exports = app;

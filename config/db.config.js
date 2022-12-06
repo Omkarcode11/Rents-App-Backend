@@ -2,15 +2,15 @@ const developmentInstance = {
     DB : "library",
     USER : "root",
     PASSWORD : "omkar",
-    dialect : "mysql",
-    HOST : "mysql"
+    DIALECT : "mysql",
+    HOST : "localhost"
 }
 
 const testInstance = {
   DB: 'library_test_db',
   USER: 'root',
   PASSWORD: 'omkar',
-  dialect: 'mysql',
+  DIALECT: 'mysql',
   HOST: 'localhost',
 };
 

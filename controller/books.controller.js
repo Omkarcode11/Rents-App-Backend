@@ -1,21 +1,34 @@
 let db = require('./../model/index');
 
 let getAllBooks = async (req, res, next) => {
-  let allBooks = await db.books.findAll();
-  res.status(200).json(allBooks);
-  res.end();
+  try {
+    throw new Error()
+    let allBooks = await db.books.findAll();
+    res.status(200).json(allBooks);
+    res.end();
+  } catch (err) {
+    next(err)
+  }
 };
 
 let getBooksById = async (req, res, next) => {
-  let book = await db.books.findByPk(req.params.id);
-  res.status(200).json(book);
-  res.end();
+  try {
+    let book = await db.books.findByPk(req.params.id);
+    res.status(200).json(book);
+    res.end();
+  } catch (err) {
+    next(err)
+  }
 };
 
 let addBooks = async (req, res, next) => {
-  await db.books.bulkCreate(req.body);
-  res.status(201).send('Books Added Successfully');
-  res.end();
+  try {
+    await db.books.bulkCreate(req.body);
+    res.status(201).send('Books Added Successfully');
+    res.end();
+  } catch (err) {
+    next(err)
+  }
 };
 
 let addBook = async (req, res, next) => {
@@ -25,14 +38,18 @@ let addBook = async (req, res, next) => {
 };
 
 let updateBook = async (req, res, next) => {
-  await db.books.update(req.body, {
-    where: {
-      id: req.body.id,
-    },
-  });
-  res.status(202).send('Successfully Update Book');
-  res.end();
-};
+  try {
+    await db.books.update(req.body, {
+      where: {
+        id: req.body.id,
+      },
+    });
+    res.status(202).send('Successfully Update Book');
+    res.end();
+  } catch (err) {
+    next(err)
+  }
+  };
 
 
 let deleteBook = async (req, res, next) => {

@@ -4,21 +4,26 @@ let bcrypt = require('bcryptjs');
 let secretKey = require('./../config/auth.config');
 
 let signup = async (req, res, next) => {
-  await db.user.create({
-    name: req.body.name,
-    address: req.body.address,
-    role: req.body.role,
-    password: bcrypt.hashSync(req.body.password, 8),
-  });
-  res.status(201).send('User Added Successfully');
-  res.end();
+  try {
+    await db.user.create({
+      name: req.body.name,
+      address: req.body.address,
+      role: req.body.role,
+      password: bcrypt.hashSync(req.body.password, 8),
+    });
+    res.status(201).send('User Added Successfully');
+    res.end();
+  } catch (err) {
+    next(err)
+  }
 };
 
 let signin = async (req, res, next) => {
-  let user = await db.user.findOne({
-    where: {
-      name: req.body.name,
-    },
+  try {
+    let user = await db.user.findOne({
+      where: {
+        name: req.body.name,
+      },
   });
   if (!user) {
     res.status(400).send('Enter valid User');
@@ -29,9 +34,9 @@ let signin = async (req, res, next) => {
     res.status(400).send('Incorrect Password');
     return;
   }
-
+  
   let token = jwt.sign({ name: user.name }, secretKey.secret, { expiresIn: 10000 });
-
+  
   res.status(200).send({
     id: user.id,
     name: user.name,
@@ -40,6 +45,9 @@ let signin = async (req, res, next) => {
     token: token,
   });
   res.end();
+} catch (err) {
+  next(err)
+}
 };
 
 module.exports = { signup, signin };
